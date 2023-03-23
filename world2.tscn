@@ -1,0 +1,258 @@
+[gd_scene load_steps=28 format=3 uid="uid://f7kqqdgnxvqr"]
+
+[ext_resource type="Texture2D" uid="uid://x10l21lxcg38" path="res://textures/ball/10-texture.jpeg" id="1_bl3a0"]
+[ext_resource type="Texture2D" uid="uid://f31re6i3qjri" path="res://textures/felt/fabrics_0075_color_1k.jpg" id="2_nthcm"]
+[ext_resource type="Texture2D" uid="uid://bw46w1j8ppyxc" path="res://textures/felt/fabrics_0075_ao_1k.jpg" id="3_spjug"]
+[ext_resource type="Texture2D" uid="uid://bf3fehknuevws" path="res://textures/felt/fabrics_0075_normal_directx_1k.png" id="4_ymn48"]
+[ext_resource type="Texture2D" uid="uid://hg5xtql0mgd2" path="res://textures/felt/fabrics_0075_roughness_1k.jpg" id="5_3ngon"]
+[ext_resource type="Script" path="res://Scripts/inputController.gd" id="5_8bus6"]
+[ext_resource type="Texture2D" uid="uid://dshg8eswqwtni" path="res://textures/ground/SandG_001.jpg" id="6_jlbwo"]
+[ext_resource type="Script" path="res://Scripts/transformZ.gd" id="7_32usr"]
+[ext_resource type="Texture2D" uid="uid://dce52t2finp6" path="res://textures/wall/Abstract_seamless_brick_wall_texture.jpg" id="8_xg8fc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_htu42"]
+sky_top_color = Color(0.392157, 0.643137, 0.780392, 1)
+sky_horizon_color = Color(0.752941, 0.878431, 0.980392, 1)
+
+[sub_resource type="Sky" id="Sky_adggh"]
+sky_material = SubResource("ProceduralSkyMaterial_htu42")
+
+[sub_resource type="Environment" id="Environment_psvt5"]
+background_mode = 2
+sky = SubResource("Sky_adggh")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dtawa"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xaran"]
+radius = 0.375
+
+[sub_resource type="SphereMesh" id="SphereMesh_rybjk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7np3h"]
+albedo_texture = ExtResource("1_bl3a0")
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5fn6l"]
+albedo_texture = ExtResource("6_jlbwo")
+uv1_scale = Vector3(10, 10, 10)
+distance_fade_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_wvhdv"]
+material = SubResource("StandardMaterial3D_5fn6l")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7k8fw"]
+radius = 60.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ce0p"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_462b5"]
+albedo_texture = ExtResource("8_xg8fc")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_daitf"]
+material = SubResource("StandardMaterial3D_462b5")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omrdg"]
+size = Vector3(1.5, 0.25, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gwajx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fj5yc"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.627451)
+albedo_texture = ExtResource("2_nthcm")
+roughness_texture = ExtResource("5_3ngon")
+normal_enabled = true
+normal_texture = ExtResource("4_ymn48")
+ao_enabled = true
+ao_texture = ExtResource("3_spjug")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwmua"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.627451)
+albedo_texture = ExtResource("2_nthcm")
+roughness_texture = ExtResource("5_3ngon")
+normal_enabled = true
+normal_texture = ExtResource("4_ymn48")
+ao_enabled = true
+ao_texture = ExtResource("3_spjug")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybi5l"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.627451)
+albedo_texture = ExtResource("2_nthcm")
+roughness_texture = ExtResource("5_3ngon")
+normal_enabled = true
+normal_texture = ExtResource("4_ymn48")
+ao_enabled = true
+ao_texture = ExtResource("3_spjug")
+
+[node name="World" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.964378, 0.26453, 0, -0.26453, 0.964378, 0, 2.52149, 5.84796)
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_psvt5")
+
+[node name="SphereRigidBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5992, 0)
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_dtawa")
+can_sleep = false
+linear_damp_mode = 1
+angular_velocity = Vector3(0.872665, 0.872665, 0.872665)
+angular_damp_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SphereRigidBody"]
+shape = SubResource("SphereShape3D_xaran")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SphereRigidBody"]
+mesh = SubResource("SphereMesh_rybjk")
+surface_material_override/0 = SubResource("StandardMaterial3D_7np3h")
+
+[node name="GroundRigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60, 0)
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+custom_integrator = true
+can_sleep = false
+angular_velocity = Vector3(0.0872665, 0, 0)
+angular_damp_mode = 1
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="GroundRigidBody3D"]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0)
+mesh = SubResource("SphereMesh_wvhdv")
+skeleton = NodePath("../../SphereRigidBody")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundRigidBody3D"]
+shape = SubResource("SphereShape3D_7k8fw")
+
+[node name="WallRigidBody3D1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.5, -15)
+collision_layer = 2
+collision_mask = 0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+lock_rotation = true
+linear_velocity = Vector3(0, 0, 5)
+linear_damp_mode = 1
+script = ExtResource("7_32usr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallRigidBody3D1"]
+shape = SubResource("BoxShape3D_3ce0p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallRigidBody3D1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("BoxMesh_daitf")
+skeleton = NodePath("")
+
+[node name="WallRigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.5, -36)
+collision_layer = 2
+collision_mask = 0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+lock_rotation = true
+linear_velocity = Vector3(0, 0, 5)
+linear_damp_mode = 1
+script = ExtResource("7_32usr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallRigidBody3D2"]
+shape = SubResource("BoxShape3D_3ce0p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallRigidBody3D2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("BoxMesh_daitf")
+skeleton = NodePath("")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("5_8bus6")
+
+[node name="BaseRigidBodyLeft" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0, 1, -1.41, 0.25, 0)
+collision_mask = 0
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+continuous_cd = true
+can_sleep = false
+lock_rotation = true
+freeze = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/BaseRigidBodyLeft"]
+shape = SubResource("BoxShape3D_omrdg")
+
+[node name="Base" type="MeshInstance3D" parent="Node3D/BaseRigidBodyLeft"]
+transform = Transform3D(1.5, 0, 0, 0, 0.25, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_gwajx")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_fj5yc")
+
+[node name="BaseRigidBodyCentre" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+collision_mask = 0
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+continuous_cd = true
+can_sleep = false
+lock_rotation = true
+freeze = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/BaseRigidBodyCentre"]
+shape = SubResource("BoxShape3D_omrdg")
+
+[node name="Base" type="MeshInstance3D" parent="Node3D/BaseRigidBodyCentre"]
+transform = Transform3D(1.5, 0, 0, 0, 0.25, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_gwajx")
+surface_material_override/0 = SubResource("StandardMaterial3D_lwmua")
+
+[node name="BaseRigidBodyRight" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, 0, 1, 1.41, 0.25, 0)
+collision_mask = 0
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+continuous_cd = true
+can_sleep = false
+lock_rotation = true
+freeze = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/BaseRigidBodyRight"]
+shape = SubResource("BoxShape3D_omrdg")
+
+[node name="Base" type="MeshInstance3D" parent="Node3D/BaseRigidBodyRight"]
+transform = Transform3D(1.5, 0, 0, 0, 0.25, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_gwajx")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ybi5l")
